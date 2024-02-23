@@ -66,7 +66,7 @@ const ProductCattle = () => {
 				<Grid
 					container
 					rowSpacing={1}
-					columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+					columnSpacing={{ xs: 1, sm: 1, md: 1 }}
 				>
 					<Grid item xs={4}>
 						{isCreateForm ? (
@@ -87,6 +87,27 @@ const ProductCattle = () => {
 							/>
 						</Box>
 					</Grid>
+
+					{/*//* Secciones Agregadas para proyecto Grupal  */}		
+					<Grid item xs={2}>
+						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
+							Seccion donde estara el formulario de filtrado
+						</Box>
+					</Grid>
+
+					<Grid item xs={2}>
+						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
+							Seccion donde estara el boton de generar informe.
+						</Box>
+					</Grid>
+					
+					<Grid item xs={8}>
+						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
+							Seccion donde estaran algunos graficos=( Grafico porcentual de raza existente y Grafico porcentual de estado de salud).
+							Estos graficos deveranser independientes del filtro aplicado
+						</Box>
+					</Grid>
+
 				</Grid>
 			</Box>
 		)

@@ -1,5 +1,5 @@
 import React from "react";
-import CropForm from "../forms/CropForm";
+import ProductForm from "../forms/ProductForm";
 import { createItem } from "@/app/api/route";
 
 const initialData = {
@@ -12,7 +12,7 @@ const initialData = {
     cultivationMethod: "",
 };
 
-const CreateCrop = ({ addProduct }) => {
+const CreateProduct = ({ addProduct }) => {
     const createCropProduct = async (data) => {
         try {
             const newData = await createItem("crop", data);
@@ -23,7 +23,7 @@ const CreateCrop = ({ addProduct }) => {
     };
 
     return (
-        <CropForm
+        <ProductForm
             dataSendingHandler={createCropProduct}
             initialData={initialData}
             labelButton={"+"}
@@ -32,5 +32,5 @@ const CreateCrop = ({ addProduct }) => {
     );
 };
 
-export default CreateCrop;
+export default CreateProduct;
 

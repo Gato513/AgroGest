@@ -4,9 +4,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 import { getAllItems } from "@/app/api/route";
-import CreateCrop from "@/components/crop/CreateCrop";
-import EditeCrop from "@/components/crop/EditeCrop";
-import DisplayCrop from "@/components/crop/DisplayCrop";
+import CreateProduct from "@/components/product/CreateProduct";
+import EditeProduct from "@/components/product/EditeProduct";
+import DisplayProduct from "@/components/product/DisplayProduct";
 
 const ProductCrops = () => {
 	const [isCreateForm, setIsCreateForm] = useState(true);
@@ -65,13 +65,13 @@ const ProductCrops = () => {
 				<Grid
 					container
 					rowSpacing={1}
-					columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+					columnSpacing={{ xs: 1, sm: 2, md: 1 }}
 				>
 					<Grid item xs={4}>
 						{isCreateForm ? (
-							<CreateCrop addProduct={addFromDom} />
+							<CreateProduct addProduct={addFromDom} />
 						) : (
-							<EditeCrop
+							<EditeProduct
 								dataCrop={dataOneCrop}
 								redefineCreationForm={defineCreationForm}
 							/>
@@ -79,13 +79,33 @@ const ProductCrops = () => {
 					</Grid>
 					<Grid item xs={8}>
 						<Box>
-							<DisplayCrop
+							<DisplayProduct
 								handleFormType={defineEditForm}
 								removeFromDom={removeFromDom}
 								dataCropProducts={data}
 							/>
 						</Box>
 					</Grid>
+
+					{/*//* Secciones Agregadas para proyecto Grupal  */}		
+					<Grid item xs={2}>
+						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
+							Seccion donde estara el formulario de filtrado
+						</Box>
+					</Grid>
+
+					<Grid item xs={2}>
+						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
+							Seccion donde estara el boton de generar informe.
+						</Box>
+					</Grid>
+					
+					<Grid item xs={8}>
+						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
+							Seccion donde estaran algunos graficos = (grafico porcentual de productos existentes)
+						</Box>
+					</Grid>
+
 				</Grid>
 			</Box>
 		)

@@ -13,7 +13,7 @@ import generateKey from "@/util/generateKey";
 
 import { deleteItem } from "@/app/api/route";
 
-const DisplayCrop = ({ handleFormType, removeFromDom, dataCropProducts }) => {
+const DisplayProduct = ({ handleFormType, removeFromDom, dataCropProducts }) => {
 	const deleteCrop = async (idToDelete) => {
 		try {
 			await deleteItem("crop", idToDelete);
@@ -24,7 +24,7 @@ const DisplayCrop = ({ handleFormType, removeFromDom, dataCropProducts }) => {
 	};
 
 	return (
-		<TableContainer component={Paper} sx={{ maxHeight: "84vh" }}>
+		<TableContainer component={Paper} sx={{ maxHeight: "53.3vh" }}>
 			<Table aria-label="simple table">
 				<TableHead sx={{ position: "sticky", top: 0, zIndex: 1 }}>
 					<TableRow sx={{ backgroundColor: "white" }}>
@@ -94,4 +94,4 @@ const DisplayCrop = ({ handleFormType, removeFromDom, dataCropProducts }) => {
 	);
 };
 
-export default DisplayCrop;
+export default DisplayProduct;

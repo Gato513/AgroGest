@@ -1,7 +1,7 @@
-import CropForm from "../forms/CropForm";
+import ProductForm from "../forms/ProductForm";
 import { updateItem } from "@/app/api/route";
 
-const EditeCrop = ({ dataCrop, redefineCreationForm }) => {
+const EditeProduct = ({ dataCrop, redefineCreationForm }) => {
     const updateCropProduct = async (data) => {
         try {
             const updatedProduct = await updateItem("crop", data);
@@ -12,7 +12,7 @@ const EditeCrop = ({ dataCrop, redefineCreationForm }) => {
     };
 
     return (
-        <CropForm
+        <ProductForm
             dataSendingHandler={updateCropProduct}
             initialData={dataCrop}
             labelButton={"Editar"}
@@ -21,5 +21,5 @@ const EditeCrop = ({ dataCrop, redefineCreationForm }) => {
     );
 };
 
-export default EditeCrop;
+export default EditeProduct;
 
