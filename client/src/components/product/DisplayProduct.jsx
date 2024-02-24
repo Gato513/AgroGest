@@ -13,10 +13,10 @@ import generateKey from "@/util/generateKey";
 
 import { deleteItem } from "@/app/api/route";
 
-const DisplayProduct = ({ handleFormType, removeFromDom, dataCropProducts }) => {
-	const deleteCrop = async (idToDelete) => {
+const DisplayProduct = ({ handleFormType, removeFromDom, dataProducts }) => {
+	const deleteProduct = async (idToDelete) => {
 		try {
-			await deleteItem("crop", idToDelete);
+			await deleteItem("product", idToDelete);
 			removeFromDom(idToDelete);
 		} catch (error) {
 			console.log(error);
@@ -39,12 +39,12 @@ const DisplayProduct = ({ handleFormType, removeFromDom, dataCropProducts }) => 
 				</TableHead>
 
 				<TableBody>
-					{dataCropProducts.map((item, idx) => {
+					{dataProducts.map((item, idx) => {
 						const newKey = generateKey(idx);
 						return (
 							<TableRow key={newKey}>
 								<TableCell align="center">
-									{item.tipoCrop}
+									{item.product}
 								</TableCell>
 								<TableCell align="center">
 									{item.category}
@@ -79,7 +79,7 @@ const DisplayProduct = ({ handleFormType, removeFromDom, dataCropProducts }) => 
 										<Button
 											variant="contained"
 											color="error"
-											onClick={() => deleteCrop(item._id)}
+											onClick={() => deleteProduct(item._id)}
 										>
 											Eliminar
 										</Button>

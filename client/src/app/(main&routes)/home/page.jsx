@@ -11,8 +11,8 @@ import { getAllDataforCharts } from "@/app/api/route";
 const categories = [
 	{
 		label: "Productos Por Categoria",
-		href: "/product_crop",
-		indexData: "crops",
+		href: "/product",
+		indexData: "product",
 	},
 	{
 		label: "Ganado",

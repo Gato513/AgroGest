@@ -2,7 +2,7 @@ const verifyToken = require("../util/verifyToken");
 const express = require('express');
 const router = express.Router();
 
-const supplieController = require('../controllers/agroSupplie.controller');
+const supplieController = require('../controllers/supplie.controller');
 
 
 //* Rutas de insumos Agrarios

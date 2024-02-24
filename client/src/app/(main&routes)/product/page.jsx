@@ -8,18 +8,18 @@ import CreateProduct from "@/components/product/CreateProduct";
 import EditeProduct from "@/components/product/EditeProduct";
 import DisplayProduct from "@/components/product/DisplayProduct";
 
-const ProductCrops = () => {
+const Product = () => {
 	const [isCreateForm, setIsCreateForm] = useState(true);
-	const [dataOneCrop, setDataOneCrop] = useState({});
+	const [dataOneProduct, setDataOneProduct] = useState({});
 	const [data, setData] = useState([]);
 	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const dataCollection = "crop";
-				const cropData = await getAllItems(dataCollection);
-				setData(cropData);
+				const dataCollection = "product";
+				const productData = await getAllItems(dataCollection);
+				setData(productData);
 				setLoaded(true);
 			} catch (error) {
 				console.log(error);
@@ -51,7 +51,7 @@ const ProductCrops = () => {
 	const defineEditForm = (id) => {
 		setIsCreateForm(false);
 		const filteredProduct = filterProductById(id);
-		setDataOneCrop(filteredProduct);
+		setDataOneProduct(filteredProduct);
 	};
 
 	const defineCreationForm = (updatedProduct) => {
@@ -72,7 +72,7 @@ const ProductCrops = () => {
 							<CreateProduct addProduct={addFromDom} />
 						) : (
 							<EditeProduct
-								dataCrop={dataOneCrop}
+								dataProduct={dataOneProduct}
 								redefineCreationForm={defineCreationForm}
 							/>
 						)}
@@ -82,7 +82,7 @@ const ProductCrops = () => {
 							<DisplayProduct
 								handleFormType={defineEditForm}
 								removeFromDom={removeFromDom}
-								dataCropProducts={data}
+								dataProducts={data}
 							/>
 						</Box>
 					</Grid>
@@ -112,4 +112,4 @@ const ProductCrops = () => {
 	);
 };
 
-export default ProductCrops;
+export default Product;

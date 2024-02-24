@@ -1,10 +1,10 @@
 import ProductForm from "../forms/ProductForm";
 import { updateItem } from "@/app/api/route";
 
-const EditeProduct = ({ dataCrop, redefineCreationForm }) => {
-    const updateCropProduct = async (data) => {
+const EditeProduct = ({ dataProduct, redefineCreationForm }) => {
+    const updateProduct = async (data) => {
         try {
-            const updatedProduct = await updateItem("crop", data);
+            const updatedProduct = await updateItem("product", data);
             redefineCreationForm(updatedProduct);
         } catch (error) {
             console.log(error);
@@ -13,8 +13,8 @@ const EditeProduct = ({ dataCrop, redefineCreationForm }) => {
 
     return (
         <ProductForm
-            dataSendingHandler={updateCropProduct}
-            initialData={dataCrop}
+            dataSendingHandler={updateProduct}
+            initialData={dataProduct}
             labelButton={"Editar"}
             labelTitle={"Editar Producto"}
         />

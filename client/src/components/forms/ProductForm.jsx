@@ -32,10 +32,10 @@ const ProductForm = ({ dataSendingHandler, initialData, labelButton, labelTitle 
                 <Box sx={{ display: "flex", gap: "1rem" }}>
                     <Stack spacing={2} direction="column">
                         <TextField
-                            name="tipoCrop"
+                            name="product"
                             label="Producto"
                             variant="outlined"
-                            value={formData.tipoCrop}
+                            value={formData.product}
                             onChange={handleChange}
                             fullWidth
                         />

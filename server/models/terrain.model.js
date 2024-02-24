@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-const CropSchema = new mongoose.Schema({
+const TerrainSchema = new mongoose.Schema({
 
-    cropName: {
+    areaTerrain: {
         type: String,
         required: true
     },
@@ -12,6 +12,6 @@ const CropSchema = new mongoose.Schema({
     }
 }, { timestamps: true, versionKey: false });
 
-const Crop = new mongoose.model("Crop", CropSchema);
+const Terrain = new mongoose.model("Terrain", TerrainSchema);
 
-module.exports = Crop;
+module.exports = Terrain;

@@ -8,7 +8,7 @@ import CreateSupplies from "@/components/supplies/CreateSupplies";
 import DisplaySupplies from "@/components/supplies/DisplaySupplies";
 import EditeSupplies from "@/components/supplies/EditeSupplies";
 
-const ProductCrops = () => {
+const Supplie = () => {
 	const [isCreateForm, setIsCreateForm] = useState(true);
 	const [dataOneSupplie, setDataOneSupplie] = useState({});
 	const [data, setData] = useState([]);
@@ -114,4 +114,4 @@ const ProductCrops = () => {
 	);
 };
 
-export default ProductCrops;
+export default Supplie;

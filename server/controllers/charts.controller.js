@@ -1,16 +1,16 @@
-const Crop = require("../models/crop.model");
-const Supplie = require("../models/agroSupplie.model");
+const Product = require("../models/product.model");
+const Supplie = require("../models/supplies.model");
 const Cattle = require("../models/cattle.model");
 
 module.exports.formattedForCharts = async (req, res) => {
     try {
         const userId = req.userId;
 
-        const crops = await Crop.find({ id_user: userId });
+        const product = await Product.find({ id_user: userId });
         const cattle = await Cattle.find({ id_user: userId });
         const supplies = await Supplie.find({ id_user: userId });
 
-        //* Contadores para cada categoría de cultivos
+        //* Contadores para cada categoría de Pducto
         let frutasCount = 0;
         let verdurasCount = 0;
         let granosCount = 0;
@@ -29,7 +29,7 @@ module.exports.formattedForCharts = async (req, res) => {
         let agroquímicosCount = 0
 
         //! Iterar sobre los cultivos y contar la cantidad en cada categoría
-        crops.forEach(item => {
+        product.forEach(item => {
             switch (item.category) {
                 case "Frutas":
                     frutasCount++;
@@ -91,7 +91,7 @@ module.exports.formattedForCharts = async (req, res) => {
 
         //? Construir el objeto de datos formateado para los gráficos
         const data = {
-            crops: [
+            product: [
                 { value: frutasCount, label: "Frutas" },
                 { value: verdurasCount, label: "Verduras" },
                 { value: granosCount, label: "Granos" }
@@ -111,7 +111,7 @@ module.exports.formattedForCharts = async (req, res) => {
             ],
             generalData: [
                 { value: cattle.length, label: "Ganado" },
-                { value: crops.length, label: "Cultivos" },
+                { value: product.length, label: "Cultivos" },
                 { value: supplies.length, label: "Insumos Agrarios" }
             ]
         };

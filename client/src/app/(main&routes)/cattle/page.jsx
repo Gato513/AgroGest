@@ -19,8 +19,8 @@ const ProductCattle = () => {
 		const fetchData = async () => {
 			try {
 				const dataCollection = "cattle";
-				const cropData = await getAllItems(dataCollection);
-				setData(cropData);
+				const productData = await getAllItems(dataCollection);
+				setData(productData);
 				setLoaded(true);
 			} catch (error) {
 				console.log(error);

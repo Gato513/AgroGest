@@ -1,4 +1,4 @@
-const Supplie = require("../models/agroSupplie.model");
+const Supplie = require("../models/supplies.model");
 
 //! Crear insumos agrarios para cada user
 module.exports.createSupplie = async (req, res) => {

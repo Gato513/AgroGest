@@ -3,7 +3,7 @@ import ProductForm from "../forms/ProductForm";
 import { createItem } from "@/app/api/route";
 
 const initialData = {
-    tipoCrop: "",
+    product: "",
     category: "",
     available: "",
     unitMeasure: "",
@@ -13,9 +13,9 @@ const initialData = {
 };
 
 const CreateProduct = ({ addProduct }) => {
-    const createCropProduct = async (data) => {
+    const createProduct = async (data) => {
         try {
-            const newData = await createItem("crop", data);
+            const newData = await createItem("product", data);
             addProduct(newData);
         } catch (error) {
             console.log(error);
@@ -24,7 +24,7 @@ const CreateProduct = ({ addProduct }) => {
 
     return (
         <ProductForm
-            dataSendingHandler={createCropProduct}
+            dataSendingHandler={createProduct}
             initialData={initialData}
             labelButton={"+"}
             labelTitle={"Agregar Producto"}
