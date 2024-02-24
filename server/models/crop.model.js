@@ -2,11 +2,23 @@ const mongoose = require("mongoose");
 
 const CropSchema = new mongoose.Schema({
 
-    cropName: {
+    cropName: {  
         type: String,
         required: true
     },
-    
+    category: {
+        type: String,
+        required: true,
+        enum: ["Frutas", "Verduras", "Granos"],
+    }, 
+    sowingDate: {
+        type: String,
+        required: true
+    },
+    cultivationMethod: {
+        type: String,
+        required: true
+    }, 
     id_user: {
         type: String,
     }
@@ -15,3 +27,4 @@ const CropSchema = new mongoose.Schema({
 const Crop = new mongoose.model("Crop", CropSchema);
 
 module.exports = Crop;
+
