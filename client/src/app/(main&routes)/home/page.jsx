@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import PieCharts from "@/components/charts/PieCharts";
 import Link from "next/link";
 import generateKey from "@/util/generateKey";
-import { getAllDataforCharts } from "@/app/api/route";
+import { bringChartData } from "@/app/api/route";
 
 const categories = [
 	{
@@ -37,8 +37,9 @@ const Home = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			
 			try {
-				const data = await getAllDataforCharts();
+				const data = await bringChartData("generalGraphics");
 				setData(data);
 				setLoaded(true);
 			} catch (error) {
