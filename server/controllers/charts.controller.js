@@ -125,7 +125,7 @@ module.exports.formattedForCharts = async (req, res) => {
 
 //* Datos para graficas espesificas
 
-//* Grafico de Productos
+//* Controlador del grafico de tipos de Productos existentes.
 module.exports.DataProductForChart = async (req, res) => {
     try {
         const userId = req.userId;
@@ -158,7 +158,7 @@ module.exports.DataProductForChart = async (req, res) => {
     }
 }
 
-//* Grafico de cantidad y estado de solud del ganado
+//* Controlador del grafico de cantidad y estado de solud del ganado.
 module.exports.DataCattleForChart = async (req, res) => {
     try {
         const userId = req.userId;
@@ -198,33 +198,26 @@ module.exports.DataCattleForChart = async (req, res) => {
     }
 }
 
-
+//* Conrolador del grafico de carateristicas de los insumos indica la cantidad de insumos granulados, solidos y liquidos
+//* Existentes en la base de datos
 module.exports.DataSupplieForChart = async (req, res) => {
     try {
         const userId = req.userId;
-        const products = await Product.find({ id_user: userId });
+        const supplies = await Supplie.find({ id_user: userId });
 
-        // Agrupar los productos por su nombre y sumar la cantidad disponible
-        const productData = products.reduce((acc, curr) => {
-            if (acc[curr.product]) {
-                acc[curr.product] += curr.available;
-            } else {
-                acc[curr.product] = curr.available;
-            }
+        //! Agrupar el ganado por raza y contar la cantidad
+        const supplieData = supplies.reduce((acc, curr) => {
+            acc[curr.characteristic] = (acc[curr.characteristic] || 0) + 1;
             return acc;
         }, {});
 
-        // Formatear los datos en el formato deseado
-        const dataProduct = Object.entries(productData).map(([productName, totalAvailable]) => ({
-            value: totalAvailable,
-            label: productName
+        //! Formatear los datos en el formato deseado
+        const dataCharacteristic = Object.entries(supplieData).map(([characteristic, count]) => ({
+            value: count,
+            label: characteristic
         }));
 
-        // Añadir otros elementos al arreglo dataProduct si es necesario
-        dataProduct.push({ value: products.length, label: "Cultivos" });
-        // Puedes añadir supplies.length si tienes los datos disponibles en este contexto
-
-        res.status(200).json({ dataProduct });
+        res.status(200).json({ dataCharacteristic });
 
     } catch (error) {
         res.status(500).json({ error: error.message });

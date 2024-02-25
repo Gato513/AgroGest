@@ -12,5 +12,7 @@ router.get("/product", verifyToken, chartsController.DataProductForChart);
 
 router.get("/cattle",  verifyToken, chartsController.DataCattleForChart)
 
+router.get("/supplie",  verifyToken, chartsController.DataSupplieForChart)
+
 
 module.exports = router;
