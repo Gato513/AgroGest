@@ -6,7 +6,7 @@ const chartsController = require('../controllers/charts.controller');
 
 
 /* Rutas de product */
-router.get("/chart", verifyToken, chartsController.formattedForCharts);
+router.get("/generalGraphics", verifyToken, chartsController.formattedForCharts);
 
 router.get("/product", verifyToken, chartsController.DataProductForChart);
 
