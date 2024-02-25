@@ -35,15 +35,15 @@ app.use("/api/user", userRoutes);
 
 
 //! Cultivos
-const cropRoutes = require('./routes/crop.routes');
-app.use("/api/crop", cropRoutes);
+const productRoutes = require('./routes/product.routes');
+app.use("/api/product", productRoutes);
 
 //! Ganado
 const cattleRoutes = require('./routes/cattle.routes');
 app.use("/api/cattle", cattleRoutes);
 
 //! Insumos Agrarios
-const supplieRoutes = require('./routes/agroSupplie.routes');
+const supplieRoutes = require('./routes/supplie.routes');
 app.use("/api/supplie", supplieRoutes);
 
 //! Charts

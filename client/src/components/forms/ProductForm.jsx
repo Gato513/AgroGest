@@ -2,7 +2,7 @@
 import { Button, Paper, Stack, TextField, Typography, MenuItem, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const CropForm = ({ dataSendingHandler, initialData, labelButton, labelTitle }) => {
+const ProductForm = ({ dataSendingHandler, initialData, labelButton, labelTitle }) => {
     const [formData, setFormData] = useState(initialData);
 
     useEffect(() => {
@@ -32,10 +32,10 @@ const CropForm = ({ dataSendingHandler, initialData, labelButton, labelTitle }) 
                 <Box sx={{ display: "flex", gap: "1rem" }}>
                     <Stack spacing={2} direction="column">
                         <TextField
-                            name="tipoCrop"
+                            name="product"
                             label="Producto"
                             variant="outlined"
-                            value={formData.tipoCrop}
+                            value={formData.product}
                             onChange={handleChange}
                             fullWidth
                         />
@@ -120,4 +120,4 @@ const CropForm = ({ dataSendingHandler, initialData, labelButton, labelTitle }) 
     );
 };
 
-export default CropForm;
+export default ProductForm;

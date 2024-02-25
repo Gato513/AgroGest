@@ -43,7 +43,7 @@ const SupplieForm = ({
 				padding: 2,
 				display: "flex",
 				flexDirection: "column",
-				gap: "1rem",
+				gap: "1.5rem",
 			}}
 		>
 			<Typography variant="h6" gutterBottom sx={{ textAlign: "center" }}>
@@ -54,11 +54,13 @@ const SupplieForm = ({
 				style={{
 					display: "flex",
 					flexDirection: "column",
-					gap: "1rem",
+					gap: "2rem",
 				}}
 			>
-				<Box>
-					<Stack spacing={2} direction="column">
+				<Box sx={{display: "flex", gap: 1}}>
+
+				{/* //* Modificacion distribucion del formulario de insumos agrarios  */}
+					<Stack spacing={2} direction="column" gap={2} >
 						<TextField
 							name="supplieName"
 							label="Nombre del Insumo"
@@ -92,6 +94,9 @@ const SupplieForm = ({
 							onChange={handleChange}
 							fullWidth
 						/>
+					</Stack>
+
+					<Stack spacing={2} direction="column" gap={2} >
 						<TextField
 							name="quantityAvailable"
 							label="Cantidad Disponible"
@@ -101,7 +106,7 @@ const SupplieForm = ({
 							onChange={handleChange}
 							fullWidth
 						/>
-						
+
 						<TextField
 							name="unitMeasure"
 							select
@@ -111,13 +116,16 @@ const SupplieForm = ({
 							onChange={handleChange}
 							fullWidth
 						>
-							{["Kilogramos", "Gramos", "Litros", "Mililitros"].map(
-								(option) => (
-									<MenuItem key={option} value={option}>
-										{option}
-									</MenuItem>
-								)
-							)}
+							{[
+								"Kilogramos",
+								"Gramos",
+								"Litros",
+								"Mililitros",
+							].map((option) => (
+								<MenuItem key={option} value={option}>
+									{option}
+								</MenuItem>
+							))}
 						</TextField>
 
 						<TextField
@@ -138,7 +146,9 @@ const SupplieForm = ({
 							)}
 						</TextField>
 					</Stack>
+
 				</Box>
+
 				<Box>
 					<Button type="submit" variant="contained" color="primary">
 						{labelButton}

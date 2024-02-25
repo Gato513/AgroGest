@@ -28,7 +28,7 @@ const DisplayCattle = ({
 	};
 
 	return (
-		<TableContainer component={Paper} sx={{ maxHeight: "84vh" }}>
+		<TableContainer component={Paper} sx={{ maxHeight: "53.3vh" }}>
 			<Table aria-label="simple table">
 				<TableHead sx={{ position: "sticky", top: 0, zIndex: 1 }}>
 					<TableRow sx={{ backgroundColor: "white" }}>
@@ -77,6 +77,18 @@ const DisplayCattle = ({
 									>
 										<Button
 											variant="contained"
+											color="success"
+											/* 
+											Agregar funcion de redireccionamiento a la paguina de detallers con el id del ganado.
+											onClick={(e) =>
+												ruhandleFormType(item._id)
+											} */
+										>
+											Detalles
+										</Button>
+
+										<Button
+											variant="contained"
 											color="info"
 											onClick={(e) =>
 												handleFormType(item._id)
@@ -84,6 +96,7 @@ const DisplayCattle = ({
 										>
 											Editar
 										</Button>
+
 										<Button
 											variant="contained"
 											color="error"

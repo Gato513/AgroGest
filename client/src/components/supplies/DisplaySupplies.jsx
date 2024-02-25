@@ -25,13 +25,13 @@ const DisplaySupplies = ({ handleFormType, removeFromDom, dataSupplie }) => {
 	};
 
 	return (
-		<TableContainer component={Paper} sx={{ maxHeight: "84vh" }}>
+		<TableContainer component={Paper} sx={{ maxHeight: "51.3vh" }}>
 			<Table aria-label="simple table">
 				<TableHead sx={{ position: "sticky", top: 0, zIndex: 1 }}>
 					<TableRow sx={{ backgroundColor: "white" }}>
 						<TableCell align="center">Producto</TableCell>
 						<TableCell align="center">Categoría</TableCell>
-						<TableCell align="center">Tipo de Producto</TableCell>
+						<TableCell align="center">Tipo de Insumo</TableCell>
 						<TableCell align="center">Cantidad Disponible</TableCell>
 						<TableCell align="center">Característica</TableCell>
 						<TableCell align="center">Acciones</TableCell>

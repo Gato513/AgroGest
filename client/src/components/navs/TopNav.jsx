@@ -8,9 +8,11 @@ import generateKey from "@/util/generateKey";
 
 const linkData = [
 	{ label: "Home", href: "/home" },
-	{ label: "Productos", href: "/product_crop" },
+	{ label: "Productos", href: "/product" },
 	{ label: "Ganados", href: "/cattle" },
 	{ label: "Insumos Agrícolas", href: "/supplies" },
+	{ label: "Cultivos", href: "/current_crop" },
+	{ label: "Terreno", href: "/terrain_information" },
 ];
 
 const handleLogout = async (router) => {

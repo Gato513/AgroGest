@@ -40,7 +40,7 @@ const CattleForm = ({
 
 	return (
 		<Paper
-			elevation={2}
+			elevation={1}
 			sx={{
 				padding: 2,
 				display: "flex",

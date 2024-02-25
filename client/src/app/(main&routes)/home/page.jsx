@@ -8,28 +8,11 @@ import Link from "next/link";
 import generateKey from "@/util/generateKey";
 import { getAllDataforCharts } from "@/app/api/route";
 
-const styles = {
-	container: {
-		display: "flex",
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center",
-		gap: "1rem",
-		border: "1px solid black",
-		borderRadius: "1rem",
-		backgroundColor: "white",
-	},
-	typography: {
-		fontSize: "1.2rem",
-		color: "blue",
-	},
-};
-
 const categories = [
 	{
 		label: "Productos Por Categoria",
-		href: "/product_crop",
-		indexData: "crops",
+		href: "/product",
+		indexData: "product",
 	},
 	{
 		label: "Ganado",
@@ -97,3 +80,20 @@ const Home = () => {
 };
 
 export default Home;
+
+const styles = {
+	container: {
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "center",
+		alignItems: "center",
+		gap: "1rem",
+		border: "1px solid black",
+		borderRadius: "1rem",
+		backgroundColor: "white",
+	},
+	typography: {
+		fontSize: "1.2rem",
+		color: "blue",
+	},
+};

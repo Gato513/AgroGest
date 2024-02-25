@@ -1,9 +1,9 @@
 import React from "react";
-import CropForm from "../forms/CropForm";
+import ProductForm from "../forms/ProductForm";
 import { createItem } from "@/app/api/route";
 
 const initialData = {
-    tipoCrop: "",
+    product: "",
     category: "",
     available: "",
     unitMeasure: "",
@@ -12,10 +12,10 @@ const initialData = {
     cultivationMethod: "",
 };
 
-const CreateCrop = ({ addProduct }) => {
-    const createCropProduct = async (data) => {
+const CreateProduct = ({ addProduct }) => {
+    const createProduct = async (data) => {
         try {
-            const newData = await createItem("crop", data);
+            const newData = await createItem("product", data);
             addProduct(newData);
         } catch (error) {
             console.log(error);
@@ -23,8 +23,8 @@ const CreateCrop = ({ addProduct }) => {
     };
 
     return (
-        <CropForm
-            dataSendingHandler={createCropProduct}
+        <ProductForm
+            dataSendingHandler={createProduct}
             initialData={initialData}
             labelButton={"+"}
             labelTitle={"Agregar Producto"}
@@ -32,5 +32,5 @@ const CreateCrop = ({ addProduct }) => {
     );
 };
 
-export default CreateCrop;
+export default CreateProduct;
 

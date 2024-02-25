@@ -2,7 +2,7 @@ import SupplieForm from "../forms/SupplieForm";
 import { updateItem } from "@/app/api/route";
 
 const EditeSupplies = ({ dataSupplie, redefineCreationForm }) => {
-    const updateCropProduct = async (data) => {
+    const updateSupplie = async (data) => {
         try {
             const updatedProduct = await updateItem("supplie", data);
             redefineCreationForm(updatedProduct);
@@ -13,7 +13,7 @@ const EditeSupplies = ({ dataSupplie, redefineCreationForm }) => {
 
     return (
         <SupplieForm
-            dataSendingHandler={updateCropProduct}
+            dataSendingHandler={updateSupplie}
             initialData={dataSupplie}
             labelButton={"Editar"}
             labelTitle={"Editar Insumo Agrario"}

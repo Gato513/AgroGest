@@ -4,22 +4,22 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 import { getAllItems } from "@/app/api/route";
-import CreateCrop from "@/components/crop/CreateCrop";
-import EditeCrop from "@/components/crop/EditeCrop";
-import DisplayCrop from "@/components/crop/DisplayCrop";
+import CreateProduct from "@/components/product/CreateProduct";
+import EditeProduct from "@/components/product/EditeProduct";
+import DisplayProduct from "@/components/product/DisplayProduct";
 
-const ProductCrops = () => {
+const Product = () => {
 	const [isCreateForm, setIsCreateForm] = useState(true);
-	const [dataOneCrop, setDataOneCrop] = useState({});
+	const [dataOneProduct, setDataOneProduct] = useState({});
 	const [data, setData] = useState([]);
 	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const dataCollection = "crop";
-				const cropData = await getAllItems(dataCollection);
-				setData(cropData);
+				const dataCollection = "product";
+				const productData = await getAllItems(dataCollection);
+				setData(productData);
 				setLoaded(true);
 			} catch (error) {
 				console.log(error);
@@ -51,7 +51,7 @@ const ProductCrops = () => {
 	const defineEditForm = (id) => {
 		setIsCreateForm(false);
 		const filteredProduct = filterProductById(id);
-		setDataOneCrop(filteredProduct);
+		setDataOneProduct(filteredProduct);
 	};
 
 	const defineCreationForm = (updatedProduct) => {
@@ -65,31 +65,51 @@ const ProductCrops = () => {
 				<Grid
 					container
 					rowSpacing={1}
-					columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+					columnSpacing={{ xs: 1, sm: 2, md: 1 }}
 				>
 					<Grid item xs={4}>
 						{isCreateForm ? (
-							<CreateCrop addProduct={addFromDom} />
+							<CreateProduct addProduct={addFromDom} />
 						) : (
-							<EditeCrop
-								dataCrop={dataOneCrop}
+							<EditeProduct
+								dataProduct={dataOneProduct}
 								redefineCreationForm={defineCreationForm}
 							/>
 						)}
 					</Grid>
 					<Grid item xs={8}>
 						<Box>
-							<DisplayCrop
+							<DisplayProduct
 								handleFormType={defineEditForm}
 								removeFromDom={removeFromDom}
-								dataCropProducts={data}
+								dataProducts={data}
 							/>
 						</Box>
 					</Grid>
+
+					{/*//* Secciones Agregadas para proyecto Grupal  */}		
+					<Grid item xs={2}>
+						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
+							Seccion donde estara el formulario de filtrado
+						</Box>
+					</Grid>
+
+					<Grid item xs={2}>
+						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
+							Seccion donde estara el boton de generar informe.
+						</Box>
+					</Grid>
+					
+					<Grid item xs={8}>
+						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
+							Seccion donde estaran algunos graficos = (grafico porcentual de productos existentes)
+						</Box>
+					</Grid>
+
 				</Grid>
 			</Box>
 		)
 	);
 };
 
-export default ProductCrops;
+export default Product;
