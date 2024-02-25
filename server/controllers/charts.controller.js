@@ -1,7 +1,8 @@
 const Product = require("../models/product.model");
-const Supplie = require("../models/supplies.model");
 const Cattle = require("../models/cattle.model");
+const Supplie = require("../models/supplies.model");
 
+//* Grafico general alojado en el Home
 module.exports.formattedForCharts = async (req, res) => {
     try {
         const userId = req.userId;
@@ -121,3 +122,104 @@ module.exports.formattedForCharts = async (req, res) => {
         res.status(500).json(error);
     }
 };
+
+//* Datos para graficas espesificas
+
+//* Controlador del grafico de tipos de Productos existentes.
+module.exports.DataProductForChart = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const products = await Product.find({ id_user: userId });
+
+        // Agrupar los productos por su nombre y sumar la cantidad disponible
+        const productData = products.reduce((acc, curr) => {
+            if (acc[curr.product]) {
+                acc[curr.product] += curr.available;
+            } else {
+                acc[curr.product] = curr.available;
+            }
+            return acc;
+        }, {});
+
+        // Formatear los datos en el formato deseado
+        const dataProduct = Object.entries(productData).map(([productName, totalAvailable]) => ({
+            value: totalAvailable,
+            label: productName
+        }));
+
+        // Añadir otros elementos al arreglo dataProduct si es necesario
+        dataProduct.push({ value: products.length, label: "Cultivos" });
+        // Puedes añadir supplies.length si tienes los datos disponibles en este contexto
+
+        res.status(200).json({ dataProduct });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+//* Controlador del grafico de cantidad y estado de solud del ganado.
+module.exports.DataCattleForChart = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const cattle = await Cattle.find({ id_user: userId });
+
+        //! Agrupar el ganado por raza y contar la cantidad
+        const razeData = cattle.reduce((acc, curr) => {
+            acc[curr.race] = (acc[curr.race] || 0) + 1;
+            return acc;
+        }, {});
+
+        const healthData = cattle.reduce((acc, curr) => {
+            acc[curr.healthStatus] = (acc[curr.healthStatus] || 0) + 1;
+            return acc;
+        }, {});
+
+        //! Formatear los datos en el formato deseado
+        const dataRaze = Object.entries(razeData).map(([race, count]) => ({
+            value: count,
+            label: race
+        }));
+
+        const dataHealt = Object.entries(healthData).map(([state, count]) => ({
+            value: count,
+            label: state
+        }));
+
+        const dataCattle = {
+            dataRaze,
+            dataHealt
+        }
+
+        res.status(200).json({ dataCattle });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+//* Conrolador del grafico de carateristicas de los insumos indica la cantidad de insumos granulados, solidos y liquidos
+//* Existentes en la base de datos
+module.exports.DataSupplieForChart = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const supplies = await Supplie.find({ id_user: userId });
+
+        //! Agrupar el ganado por raza y contar la cantidad
+        const supplieData = supplies.reduce((acc, curr) => {
+            acc[curr.characteristic] = (acc[curr.characteristic] || 0) + 1;
+            return acc;
+        }, {});
+
+        //! Formatear los datos en el formato deseado
+        const dataCharacteristic = Object.entries(supplieData).map(([characteristic, count]) => ({
+            value: count,
+            label: characteristic
+        }));
+
+        res.status(200).json({ dataCharacteristic });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}

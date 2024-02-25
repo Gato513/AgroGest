@@ -98,10 +98,12 @@ export async function deleteItem(dataCollection, idItem) {
     }
 }
 
-//! Funciones de Gráficos
-export async function getAllDataforCharts() {
+//! Funcion de Gráficos
+//* chartType indica el nombre del grafico espesifico que la api traera 
+//* Existen las occiones=(generalGraphics, product, cattle, supplie).
+export async function bringChartData(chartType) {  
     try {
-        const response = await axios.get(`${API_BASE_URL}/chart`, withCredentialsConfig);
+        const response = await axios.get(`${API_BASE_URL}/chart/${chartType}`, withCredentialsConfig);
         return response.data;
     } catch (error) {
         handleApiError(error);
