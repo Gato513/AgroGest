@@ -158,27 +158,38 @@ module.exports.DataProductForChart = async (req, res) => {
     }
 }
 
-//* Grafico de cantidad de ganado por raza falta mejorar 
+//* Grafico de cantidad y estado de solud del ganado
 module.exports.DataCattleForChart = async (req, res) => {
     try {
         const userId = req.userId;
         const cattle = await Cattle.find({ id_user: userId });
 
-        // Agrupar el ganado por raza y contar la cantidad
-        const cattleData = cattle.reduce((acc, curr) => {
+        //! Agrupar el ganado por raza y contar la cantidad
+        const razeData = cattle.reduce((acc, curr) => {
             acc[curr.race] = (acc[curr.race] || 0) + 1;
             return acc;
         }, {});
 
-        // Formatear los datos en el formato deseado
-        const dataCattle = Object.entries(cattleData).map(([race, count]) => ({
+        const healthData = cattle.reduce((acc, curr) => {
+            acc[curr.healthStatus] = (acc[curr.healthStatus] || 0) + 1;
+            return acc;
+        }, {});
+
+        //! Formatear los datos en el formato deseado
+        const dataRaze = Object.entries(razeData).map(([race, count]) => ({
             value: count,
             label: race
         }));
 
-        // Agregar el total de cabezas de ganado como un elemento en dataCattle
-        const totalCattle = cattle.length;
-        dataCattle.push({ value: totalCattle, label: "Total de cabezas de ganado" });
+        const dataHealt = Object.entries(healthData).map(([state, count]) => ({
+            value: count,
+            label: state
+        }));
+
+        const dataCattle = {
+            dataRaze,
+            dataHealt
+        }
 
         res.status(200).json({ dataCattle });
 
