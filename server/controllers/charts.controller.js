@@ -1,7 +1,8 @@
 const Product = require("../models/product.model");
-const Supplie = require("../models/supplies.model");
 const Cattle = require("../models/cattle.model");
+const Supplie = require("../models/supplies.model");
 
+//* Grafico general alojado en el Home
 module.exports.formattedForCharts = async (req, res) => {
     try {
         const userId = req.userId;
@@ -121,3 +122,100 @@ module.exports.formattedForCharts = async (req, res) => {
         res.status(500).json(error);
     }
 };
+
+//* Datos para graficas espesificas
+
+//* Grafico de Productos
+module.exports.DataProductForChart = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const products = await Product.find({ id_user: userId });
+
+        // Agrupar los productos por su nombre y sumar la cantidad disponible
+        const productData = products.reduce((acc, curr) => {
+            if (acc[curr.product]) {
+                acc[curr.product] += curr.available;
+            } else {
+                acc[curr.product] = curr.available;
+            }
+            return acc;
+        }, {});
+
+        // Formatear los datos en el formato deseado
+        const dataProduct = Object.entries(productData).map(([productName, totalAvailable]) => ({
+            value: totalAvailable,
+            label: productName
+        }));
+
+        // Añadir otros elementos al arreglo dataProduct si es necesario
+        dataProduct.push({ value: products.length, label: "Cultivos" });
+        // Puedes añadir supplies.length si tienes los datos disponibles en este contexto
+
+        res.status(200).json({ dataProduct });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+//* Grafico de cantidad de ganado por raza falta mejorar 
+module.exports.DataCattleForChart = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const cattle = await Cattle.find({ id_user: userId });
+
+        // Agrupar el ganado por raza y contar la cantidad
+        const cattleData = cattle.reduce((acc, curr) => {
+            acc[curr.race] = (acc[curr.race] || 0) + 1;
+            return acc;
+        }, {});
+
+        // Formatear los datos en el formato deseado
+        const dataCattle = Object.entries(cattleData).map(([race, count]) => ({
+            value: count,
+            label: race
+        }));
+
+        // Agregar el total de cabezas de ganado como un elemento en dataCattle
+        const totalCattle = cattle.length;
+        dataCattle.push({ value: totalCattle, label: "Total de cabezas de ganado" });
+
+        res.status(200).json({ dataCattle });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+
+module.exports.DataSupplieForChart = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const products = await Product.find({ id_user: userId });
+
+        // Agrupar los productos por su nombre y sumar la cantidad disponible
+        const productData = products.reduce((acc, curr) => {
+            if (acc[curr.product]) {
+                acc[curr.product] += curr.available;
+            } else {
+                acc[curr.product] = curr.available;
+            }
+            return acc;
+        }, {});
+
+        // Formatear los datos en el formato deseado
+        const dataProduct = Object.entries(productData).map(([productName, totalAvailable]) => ({
+            value: totalAvailable,
+            label: productName
+        }));
+
+        // Añadir otros elementos al arreglo dataProduct si es necesario
+        dataProduct.push({ value: products.length, label: "Cultivos" });
+        // Puedes añadir supplies.length si tienes los datos disponibles en este contexto
+
+        res.status(200).json({ dataProduct });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
