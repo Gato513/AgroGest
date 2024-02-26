@@ -1,11 +1,13 @@
 const TerrainSchema = new mongoose.Schema({
     latitude: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
     longitude: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
     soilType: {
         type: String,
@@ -15,9 +17,6 @@ const TerrainSchema = new mongoose.Schema({
         type: Number, // En hectáreas, por ejemplo
         required: true
     },
-    crops: [{
-        type: String // Lista de cultivos que se cultivan en el terreno
-    }],
     irrigation: {
         type: Boolean,
         default: false // Indica si el terreno cuenta con sistemas de riego
