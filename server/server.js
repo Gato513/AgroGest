@@ -50,6 +50,9 @@ app.use("/api/supplie", supplieRoutes);
 const cropRoutes = require('./routes/crop.routes');
 app.use("/api/crop", cropRoutes);
 
+const terrainRoutes = require('./routes/terrain.routes');
+app.use("/api/terrain", terrainRoutes);
+
 //! Charts
 const chartsRoutes = require('./routes/charts.routes');
 app.use("/api/chart", chartsRoutes);
