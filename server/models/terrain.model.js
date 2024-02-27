@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const TerrainSchema = new mongoose.Schema({
     latitude: {
         type: Number,
