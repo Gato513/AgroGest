@@ -80,6 +80,15 @@ export async function getAllItems(dataCollection) {
     }
 }
 
+export async function getItemsById(dataCollection, idItem) {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/${dataCollection}/${idItem}`, withCredentialsConfig);
+        return response.data;
+    } catch (error) {
+        handleApiError(error);
+    }
+}
+
 export async function updateItem(dataCollection, data) {
     try {
         const response = await axios.put(`${API_BASE_URL}/${dataCollection}/${data._id}`, data, withCredentialsConfig);
