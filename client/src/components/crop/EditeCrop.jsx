@@ -1,25 +1,25 @@
-import ProductForm from "../forms/ProductForm";
+import CropForm from "../forms/CropForm";
 import { updateItem } from "@/app/api/route";
 
-const EditeProduct = ({ dataProduct, redefineCreationForm }) => {
+const EditeCrop = ({ dataCrop, redefineCreationForm }) => {
     const updateProduct = async (data) => {
         try {
-            const updatedProduct = await updateItem("product", data);
-            redefineCreationForm(updatedProduct);
+            const updatedData = await updateItem("crop", data);
+            redefineCreationForm(updatedData);
         } catch (error) {
             console.log(error);
         }
     };
 
     return (
-        <ProductForm
+        <CropForm
             dataSendingHandler={updateProduct}
-            initialData={dataProduct}
+            initialData={dataCrop}
             labelButton={"Editar"}
             labelTitle={"Editar Cultivo"}
         />
     );
 };
 
-export default EditeProduct;
+export default EditeCrop;
 

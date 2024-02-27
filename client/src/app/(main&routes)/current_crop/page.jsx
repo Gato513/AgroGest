@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import { getAllItems } from "@/app/api/route";
 
 import CreateCrop from "@/components/crop/CreateCrop";
-import EditeCrop from "@/components/product/EditeProduct";
+import EditeCrop from "@/components/crop/EditeCrop";
 import DisplayCrop from "@/components/crop/DisplayCrop";
 
 const CultivosActuales = () => {
