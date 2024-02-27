@@ -117,9 +117,9 @@ const SupplieForm = ({
 							fullWidth
 						>
 							{[
-								"Kilogramos",
-								"Gramos",
-								"Litros",
+								"kg",
+								"gr",
+								"litros",
 								"Mililitros",
 							].map((option) => (
 								<MenuItem key={option} value={option}>

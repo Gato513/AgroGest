@@ -136,7 +136,7 @@ const CattleForm = ({
 							onChange={handleChange}
 							fullWidth
 						>
-							{["Kilos", "Gramos", "Litros", "Mililitros"].map(
+							{["kg", "gr", "litros", "docenas"].map(
 								(option) => (
 									<MenuItem key={option} value={option}>
 										{option}
