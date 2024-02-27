@@ -32,9 +32,9 @@ app.use("/api/session", sessionRoutes);
 const userRoutes = require('./routes/user.routes');
 app.use("/api/user", userRoutes);
 
+//*===============================================================
 
-
-//! Cultivos
+//! Productos
 const productRoutes = require('./routes/product.routes');
 app.use("/api/product", productRoutes);
 
@@ -45,6 +45,14 @@ app.use("/api/cattle", cattleRoutes);
 //! Insumos Agrarios
 const supplieRoutes = require('./routes/supplie.routes');
 app.use("/api/supplie", supplieRoutes);
+
+//! Cultivos
+const cropRoutes = require('./routes/crop.routes');
+app.use("/api/crop", cropRoutes);
+
+//! Terrenos
+const terrainRoutes = require('./routes/terrain.routes');
+app.use("/api/terrain", terrainRoutes);
 
 //! Charts
 const chartsRoutes = require('./routes/charts.routes');

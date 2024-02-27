@@ -72,7 +72,7 @@ const Product = () => {
 							<CreateProduct addProduct={addFromDom} />
 						) : (
 							<EditeProduct
-								dataProduct={dataOneProduct}
+								dataProducts={dataOneProduct}
 								redefineCreationForm={defineCreationForm}
 							/>
 						)}

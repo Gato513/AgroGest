@@ -33,7 +33,6 @@ const CattleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
     healthStatus: {
         type: String,
         required: true,

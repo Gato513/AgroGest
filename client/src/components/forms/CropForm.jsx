@@ -2,14 +2,11 @@
 import { Button, Paper, Stack, TextField, Typography, MenuItem, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const ProductForm = ({ dataSendingHandler, initialData, labelButton, labelTitle }) => {
+const CropForm = ({ dataSendingHandler, initialData, labelButton, labelTitle }) => {
     const [formData, setFormData] = useState(initialData);
 
     useEffect(() => {
         setFormData(initialData);
-        
-        console.log(initialData);
-
     }, [initialData]);
 
     const handleChange = (e) => {
@@ -33,15 +30,17 @@ const ProductForm = ({ dataSendingHandler, initialData, labelButton, labelTitle 
             </Typography>
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                 <Box sx={{ display: "flex", gap: "1rem" }}>
+                    
                     <Stack spacing={2} direction="column">
                         <TextField
                             name="product"
-                            label="Producto"
+                            label="Cultivo"
                             variant="outlined"
                             value={formData.product}
                             onChange={handleChange}
                             fullWidth
                         />
+
                         <TextField
                             name="category"
                             select
@@ -57,31 +56,9 @@ const ProductForm = ({ dataSendingHandler, initialData, labelButton, labelTitle 
                                 </MenuItem>
                             ))}
                         </TextField>
-                        <TextField
-                            name="available"
-                            label="Cantidad"
-                            variant="outlined"
-                            type="number"
-                            value={formData.available}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="unitMeasure"
-                            select
-                            label="Unidad de Medida"
-                            variant="outlined"
-                            value={formData.unitMeasure}
-                            onChange={handleChange}
-                            fullWidth
-                        >
-                            {["kg", "gr"].map((option) => (
-                                <MenuItem key={option} value={option}>
-                                    {option}
-                                </MenuItem>
-                            ))}
-                        </TextField>
+
                     </Stack>
+
                     <Stack spacing={2} direction="column">
                         <TextField
                             name="sowingDate"
@@ -93,16 +70,7 @@ const ProductForm = ({ dataSendingHandler, initialData, labelButton, labelTitle 
                             fullWidth
                             InputLabelProps={{ shrink: true }}
                         />
-                        <TextField
-                            name="harvestDate"
-                            label="Fecha de Cosecha"
-                            variant="outlined"
-                            type="date"
-                            value={formData.harvestDate}
-                            onChange={handleChange}
-                            fullWidth
-                            InputLabelProps={{ shrink: true }}
-                        />
+                    
                         <TextField
                             name="cultivationMethod"
                             label="Método de Cultivo"
@@ -112,6 +80,7 @@ const ProductForm = ({ dataSendingHandler, initialData, labelButton, labelTitle 
                             fullWidth
                         />
                     </Stack>
+
                 </Box>
                 <Box>
                     <Button type="submit" variant="contained" color="primary">
@@ -123,4 +92,4 @@ const ProductForm = ({ dataSendingHandler, initialData, labelButton, labelTitle 
     );
 };
 
-export default ProductForm;
+export default CropForm;

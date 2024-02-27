@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const CropSchema = new mongoose.Schema({
 
-    cropName: {  
+    product: {  
         type: String,
         required: true
     },
