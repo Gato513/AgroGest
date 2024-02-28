@@ -6,162 +6,127 @@ import { getAllItems, bringChartData } from "@/app/api/route";
 import CreateProduct from "@/components/product/CreateProduct";
 import EditeProduct from "@/components/product/EditeProduct";
 import DisplayProduct from "@/components/product/DisplayProduct";
+
 import generatePDF from "@/components/pdfgen/generatePDF";
 import PieCharts from "@/components/charts/PieCharts";
 
 const Product = () => {
-    const [isCreateForm, setIsCreateForm] = useState(true);
-    const [dataOneProduct, setDataOneProduct] = useState({});
-    const [data, setData] = useState([]);
-    const [loaded, setLoaded] = useState(false);
-    const [productChartData, setProductChartData] = useState([]);
-    const [fruitChartData, setFruitChartData] = useState([]);
-    const [vegetableChartData, setVegetableChartData] = useState([]);
-    const [grainChartData, setGrainChartData] = useState([]);
+	const [isCreateForm, setIsCreateForm] = useState(true);
+	const [dataOneProduct, setDataOneProduct] = useState({});
+	const [data, setData] = useState([]);
+	const [loaded, setLoaded] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const dataCollection = "product";
-                const productData = await getAllItems(dataCollection);
-                setData(productData);
-                setLoaded(true);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetchData();
-    }, []);
+	//*Estado de los graficos de productos
+	const [chartsData, setChartsData] = useState({});
 
-    useEffect(() => {
-        const fetchProductChartData = async () => {
-            try {
-                const chartData = await bringChartData("product");
-                setProductChartData(chartData.dataProduct);
-            } catch (error) {
-                console.error("Error fetching product chart data:", error);
-            }
-        };
-        fetchProductChartData();
-    }, []);
+	const getDataAllCharts = async () => {
+		try {
+			const chartsData = await bringChartData("product");
+			setChartsData(chartsData);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-    useEffect(() => {
-        const fetchFruitChartData = async () => {
-            try {
-                const chartData = await bringChartData("Frutas");
-                setFruitChartData(chartData.dataFruit);
-            } catch (error) {
-                console.error("Error fetching fruit chart data:", error);
-            }
-        };
-        fetchFruitChartData();
-    }, []);
+	const getDataAllProduct = async () => {
+		try {
+			const productData = await getAllItems("product");
+			setData(productData);
+			setLoaded(true);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-    useEffect(() => {
-        const fetchVegetableChartData = async () => {
-            try {
-                const chartData = await bringChartData("Verduras");
-                setVegetableChartData(chartData.dataVegetable);
-            } catch (error) {
-                console.error("Error fetching vegetable chart data:", error);
-            }
-        };
-        fetchVegetableChartData();
-    }, []);
+	useEffect(() => {
+		getDataAllCharts();
+		getDataAllProduct();
+	}, []);
+	useEffect(() => {
+		getDataAllCharts();
+	}, [data]);
 
-    useEffect(() => {
-        const fetchGrainChartData = async () => {
-            try {
-                const chartData = await bringChartData("Granos");
-                setGrainChartData(chartData.dataGrain);
-            } catch (error) {
-                console.error("Error fetching grain chart data:", error);
-            }
-        };
-        fetchGrainChartData();
-    }, []);
+	//* Funciones para modificar el DOM
+	const removeFromDom = (itemId) => {
+		setData((prevData) => prevData.filter((item) => item._id !== itemId));
+	};
 
-    const removeFromDom = (itemId) => {
-        setData((prevData) => prevData.filter((item) => item._id !== itemId));
-    };
+	const addFromDom = (newData) => {
+		setData((prevData) => [...prevData, newData]);
+	};
 
-    const addFromDom = (newData) => {
-        setData((prevData) => [...prevData, newData]);
-    };
+	const updateData = (updatedProduct) => {
+		setData((prevData) =>
+			prevData.map((item) =>
+				item._id === updatedProduct._id ? updatedProduct : item
+			)
+		);
+	};
 
-    const updateData = (updatedProduct) => {
-        setData((prevData) =>
-            prevData.map((item) =>
-                item._id === updatedProduct._id ? updatedProduct : item
-            )
-        );
-    };
+	const filterProductById = (id) => {
+		return data.find((item) => item._id === id);
+	};
 
-    const filterProductById = (id) => {
-        return data.find((item) => item._id === id);
-    };
+	const defineEditForm = (id) => {
+		setIsCreateForm(false);
+		const filteredProduct = filterProductById(id);
+		setDataOneProduct(filteredProduct);
+	};
 
-    const defineEditForm = (id) => {
-        setIsCreateForm(false);
-        const filteredProduct = filterProductById(id);
-        setDataOneProduct(filteredProduct);
-    };
+	const defineCreationForm = (updatedProduct) => {
+		updateData(updatedProduct);
+		setIsCreateForm(true);
+	};
 
-    const defineCreationForm = (updatedProduct) => {
-        updateData(updatedProduct);
-        setIsCreateForm(true);
-    };
+	const handleGeneratePDF = () => {
+		generatePDF(data);
+	};
 
-    const handleGeneratePDF = () => {
-        generatePDF(data);
-    };
-
-    return (
-        loaded && (
-            <Box sx={{ width: "100%" }}>
-                <Grid
-                    container
-                    rowSpacing={1}
-                    columnSpacing={{ xs: 1, sm: 2, md: 1 }}
-                >
-                    <Grid item xs={4}>
-                        {isCreateForm ? (
-                            <CreateProduct addProduct={addFromDom} />
-                        ) : (
-                            <EditeProduct
-                                dataProduct={dataOneProduct}
-                                redefineCreationForm={defineCreationForm}
-                            />
-                        )}
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Box>
-                            <DisplayProduct
-                                handleFormType={defineEditForm}
-                                removeFromDom={removeFromDom}
-                                dataProducts={data}
-                            />
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <button onClick={handleGeneratePDF}>Generar PDF</button>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <PieCharts data={productChartData} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <PieCharts data={fruitChartData} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <PieCharts data={vegetableChartData} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <PieCharts data={grainChartData} />
-                    </Grid>
-                </Grid>
-            </Box>
-        )
-    );
+	return (
+		loaded && (
+			<Box sx={{ width: "100%" }}>
+				<Grid
+					container
+					rowSpacing={1}
+					columnSpacing={{ xs: 1, sm: 2, md: 1 }}
+				>
+					<Grid item xs={4}>
+						{isCreateForm ? (
+							<CreateProduct addProduct={addFromDom} />
+						) : (
+							<EditeProduct
+								dataProduct={dataOneProduct}
+								redefineCreationForm={defineCreationForm}
+							/>
+						)}
+					</Grid>
+					<Grid item xs={8}>
+						<Box>
+							<DisplayProduct
+								handleFormType={defineEditForm}
+								removeFromDom={removeFromDom}
+								dataProducts={data}
+							/>
+						</Box>
+					</Grid>
+					//* Boton de Generar pdf
+					<Grid item xs={12}>
+						<button onClick={handleGeneratePDF}>Generar PDF</button>
+					</Grid>
+					//* Graficos de datos
+					<Grid item xs={3}>
+						<PieCharts data={chartsData} />
+					</Grid>
+					<Grid item xs={3}>
+						<PieCharts data={chartsData} />
+					</Grid>
+					<Grid item xs={3}>
+						<PieCharts data={chartsData} />
+					</Grid>
+				</Grid>
+			</Box>
+		)
+	);
 };
 
 export default Product;
