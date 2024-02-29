@@ -112,9 +112,9 @@ const SupplieForm = ({ dataSendingHandler, generateReport, initialData, labelBut
 							fullWidth
 						>
 							{[
-								"kg",
-								"gr",
-								"litros",
+								"Kilogramos",
+								"Gramos",
+								"Litros",
 								"Mililitros",
 							].map((option) => (
 								<MenuItem key={option} value={option}>

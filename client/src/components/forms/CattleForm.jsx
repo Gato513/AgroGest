@@ -1,5 +1,4 @@
-"use client";
-"use client";
+"use client"
 import { Button, Paper, Stack, TextField, Typography, MenuItem, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 

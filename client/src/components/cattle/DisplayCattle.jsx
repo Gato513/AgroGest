@@ -1,10 +1,23 @@
 import React from "react";
-import { Button, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import {
+	Button,
+	Paper,
+	Stack,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+} from "@mui/material";
 import generateKey from "@/util/generateKey";
 import { deleteItem } from "@/app/api/route";
 
-const DisplayCattle = ({ handleFormType, removeFromDom, dataCattleProducts }) => {
-
+const DisplayCattle = ({
+	handleFormType,
+	removeFromDom,
+	dataCattleProducts,
+}) => {
 	const deleteCattle = async (idToDelete) => {
 		try {
 			await deleteItem("cattle", idToDelete);

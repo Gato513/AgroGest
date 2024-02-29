@@ -5,11 +5,10 @@ import { useEffect, useState } from "react";
 const ProductForm = ({ dataSendingHandler, initialData, labelButton, labelTitle, generateReport }) => {
 	const [formData, setFormData] = useState(initialData);
 
-	useEffect(() => {
-		setFormData(initialData);
 
-		console.log(initialData);
-	}, [initialData]);
+    useEffect(() => {
+        setFormData(initialData);
+    }, [initialData]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
