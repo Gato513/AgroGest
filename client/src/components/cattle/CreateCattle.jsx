@@ -13,7 +13,7 @@ const initialData = {
 	healthStatus: ""
 };
 
-const CreateCattle = ({ addProduct }) => {
+const CreateCattle = ({ addProduct, generateReport }) => {
 	const createCattle = async (data) => {
 		try {
 			const newData = await createItem("cattle", data);
@@ -26,6 +26,7 @@ const CreateCattle = ({ addProduct }) => {
 	return (
 		<CattleForm
 			dataSendingHandler={createCattle}
+			generateReport={generateReport}
 			initialData={initialData}
 			labelButton={"+"}
 			labelTitle={"Agregar Ganado"}

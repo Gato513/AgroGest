@@ -7,8 +7,9 @@ import { getAllItems } from "@/app/api/route";
 import CreateSupplies from "@/components/supplies/CreateSupplies";
 import DisplaySupplies from "@/components/supplies/DisplaySupplies";
 import EditeSupplies from "@/components/supplies/EditeSupplies";
-import generatePDF from "@/components/pdfgen/PdfSupplies";
+import { Paper, Typography } from "@mui/material";
 
+import generateSuppliesPDF from "@/components/pdfgen/PdfSupplies";
 
 const Supplie = () => {
 	const [isCreateForm, setIsCreateForm] = useState(true);
@@ -61,10 +62,10 @@ const Supplie = () => {
 		setIsCreateForm(true);
 	};
 
-	
-    const handleGeneratePDF = () => {
-        generatePDF(data);
-    };
+	const handleReportBuilder = () => {
+		generateSuppliesPDF(data);
+	};
+
 
 	return (
 		loaded && (
@@ -76,11 +77,15 @@ const Supplie = () => {
 				>
 					<Grid item xs={4}>
 						{isCreateForm ? (
-							<CreateSupplies addSupplie={addFromDom} />
+							<CreateSupplies
+								addSupplie={addFromDom}
+								generateReport={handleReportBuilder}
+							/>
 						) : (
 							<EditeSupplies
 								dataSupplie={dataOneSupplie}
 								redefineCreationForm={defineCreationForm}
+								generateReport={handleReportBuilder}
 							/>
 						)}
 					</Grid>
@@ -94,25 +99,27 @@ const Supplie = () => {
 						</Box>
 					</Grid>
 
-
-					{/*//* Secciones Agregadas para proyecto Grupal  */}		
-					<Grid item xs={2}>
-						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
-							Seccion donde estara el formulario de filtrado
-						</Box>
+					{/*//! Graficos */}
+					<Grid item xs={4}>
+						<Paper sx={styleContainer}>
+							<Typography>Frutas</Typography>
+							{/* <PieCharts data={chartsData.fruit} /> */}
+						</Paper>
 					</Grid>
 
-					<Grid item xs={2}>
-                        <button onClick={handleGeneratePDF}>Generar PDF</button>
-                    </Grid>
-					
-					<Grid item xs={8}>
-						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
-							Seccion donde estaran algunos graficos = (grafico porcentual de caracteristica de unsumo
-							cuantos insumos solidos liquidos o granulados existen)
-						</Box>
+					<Grid item xs={4}>
+						<Paper sx={styleContainer}>
+							<Typography>Vegetales</Typography>
+							{/* <PieCharts data={chartsData.vegetables} /> */}
+						</Paper>
 					</Grid>
-					
+
+					<Grid item xs={4}>
+						<Paper sx={styleContainer}>
+							<Typography>Granos</Typography>
+							{/* <PieCharts data={chartsData.grain} /> */}
+						</Paper>
+					</Grid>
 				</Grid>
 			</Box>
 		)
@@ -120,3 +127,10 @@ const Supplie = () => {
 };
 
 export default Supplie;
+
+const styleContainer = {
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "center",
+	backgroundColor: "white",
+};

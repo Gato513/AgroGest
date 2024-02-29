@@ -7,8 +7,7 @@ import CreateProduct from "@/components/product/CreateProduct";
 import EditeProduct from "@/components/product/EditeProduct";
 import DisplayProduct from "@/components/product/DisplayProduct";
 
-import generatePDF from "@/components/pdfgen/generatePDF";
-
+import productReportGenerator from "@/components/pdfgen/PdfProduct";
 import PieCharts from "@/components/charts/PieCharts";
 import { Paper, Typography } from "@mui/material";
 
@@ -81,7 +80,7 @@ const Product = () => {
 	};
 
 	const handleReportBuilder = () => {
-		generatePDF(data);
+		productReportGenerator(data);
 	};
 
 	return (
@@ -102,7 +101,6 @@ const Product = () => {
 							<EditeProduct
 								dataProducts={dataOneProduct}
 								redefineCreationForm={defineCreationForm}
-								generateReport={handleReportBuilder}
 							/>
 						)}
 					</Grid>

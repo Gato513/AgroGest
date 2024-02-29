@@ -24,7 +24,7 @@ const generateSuppliesPDF = (suppliesData) => {
     doc.text(`Fecha: ${formattedDate}`, 10, 35);
 
     // Establecer encabezado de la tabla
-    const headers = ['Producto', 'Categoría', 'Tipo de Insumo', 'Cantidad Disponible', 'Característica'];
+    const headers = ['Producto', 'Categoría', 'Tipo de Insumo', 'Cantidad Disponible', 'Unidad de Medida', 'Característica'];
     const rows = [];
 
     // Convertir datos en formato tabular
@@ -34,6 +34,7 @@ const generateSuppliesPDF = (suppliesData) => {
             supply.category,
             supply.supplieType,
             supply.quantityAvailable,
+            supply.unitMeasure,
             supply.characteristic
         ];
         rows.push(rowData); // Agregar fila de datos al array de filas

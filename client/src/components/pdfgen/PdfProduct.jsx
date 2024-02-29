@@ -3,7 +3,7 @@
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-const generatePDF = (data) => {
+const productReportGenerator = (data) => {
     const doc = new jsPDF();
 
     // Establecer encabezado
@@ -66,4 +66,4 @@ const generatePDF = (data) => {
     doc.save('productos.pdf');
 };
 
-export default generatePDF;
+export default productReportGenerator;

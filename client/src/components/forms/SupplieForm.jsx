@@ -10,12 +10,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const SupplieForm = ({
-	dataSendingHandler,
-	initialData,
-	labelButton,
-	labelTitle,
-}) => {
+const SupplieForm = ({ dataSendingHandler, generateReport, initialData, labelButton, labelTitle }) => {
 	const [formData, setFormData] = useState(initialData);
 
 	useEffect(() => {
@@ -149,11 +144,16 @@ const SupplieForm = ({
 
 				</Box>
 
-				<Box>
+				<Box sx={{display: "flex", gap: 2}}>
 					<Button type="submit" variant="contained" color="primary">
 						{labelButton}
 					</Button>
+
+					<Button variant="contained" color="success" onClick={generateReport}>
+						Generar PDF
+					</Button>
 				</Box>
+				
 			</form>
 		</Paper>
 	);

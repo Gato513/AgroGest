@@ -13,7 +13,7 @@ const initialData = {
 
 
 
-const CreateSupplies = ({ addSupplie }) => {
+const CreateSupplies = ({ addSupplie, generateReport }) => {
     const createSupplie = async (data) => {
         try {
             const newData = await createItem("supplie", data);
@@ -26,6 +26,7 @@ const CreateSupplies = ({ addSupplie }) => {
     return (
         <SupplieForm
             dataSendingHandler={createSupplie}
+            generateReport={generateReport}
             initialData={initialData}
             labelButton={"+"}
             labelTitle={"Agregar Insumo Agricola"}
