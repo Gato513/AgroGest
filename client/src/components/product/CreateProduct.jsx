@@ -12,7 +12,7 @@ const initialData = {
     cultivationMethod: "",
 };
 
-const CreateProduct = ({ addProduct }) => {
+const CreateProduct = ({ addProduct, generateReport }) => {
     const createProduct = async (data) => {
         try {
             const newData = await createItem("product", data);
@@ -25,6 +25,7 @@ const CreateProduct = ({ addProduct }) => {
     return (
         <ProductForm
             dataSendingHandler={createProduct}
+            generateReport={generateReport}
             initialData={initialData}
             labelButton={"+"}
             labelTitle={"Agregar Producto"}

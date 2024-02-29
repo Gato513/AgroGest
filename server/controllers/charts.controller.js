@@ -2,35 +2,55 @@ const Product = require("../models/product.model");
 const Cattle = require("../models/cattle.model");
 const Supplie = require("../models/supplies.model");
 
-//* Grafico general alojado en el Home
+const dataDrouper = (data, category) => {
+    const group = data.reduce((acc, curr) => {
+        if (curr.category === category) {
+            if (acc[curr.product]) {
+                acc[curr.product] += curr.available;
+            } else {
+                acc[curr.product] = curr.available;
+            }
+        }
+        return acc;
+    }, {});
+
+    return group;
+};
+
+const dataFormatting = (data) => {
+    const formattedData = Object.entries(data).map(([productName, totalAvailable]) => ({
+        value: totalAvailable,
+        label: productName
+    }));
+    return formattedData;
+};
+
 module.exports.formattedForCharts = async (req, res) => {
     try {
         const userId = req.userId;
 
-        const product = await Product.find({ id_user: userId });
-        const cattle = await Cattle.find({ id_user: userId });
-        const supplies = await Supplie.find({ id_user: userId });
+        const [products, cattle, supplies] = await Promise.all([
+            Product.find({ id_user: userId }),
+            Cattle.find({ id_user: userId }),
+            Supplie.find({ id_user: userId })
+        ]);
 
-        //* Contadores para cada categoría de Pducto
         let frutasCount = 0;
         let verdurasCount = 0;
         let granosCount = 0;
 
-        //* Contadores para cada categoría de ganado
-        let lecheroCount = 0
-        let carneCount = 0
-        let lanarCount = 0
-        let caprinoCount = 0
-        let porcinoCount = 0
-        let aveCount = 0
+        let lecheroCount = 0;
+        let carneCount = 0;
+        let lanarCount = 0;
+        let caprinoCount = 0;
+        let porcinoCount = 0;
+        let aveCount = 0;
 
-        //* Contadores para cada categoría de Insumos Agrarios
-        let semillasCount = 0
-        let fertilizantesCount = 0
-        let agroquímicosCount = 0
+        let semillasCount = 0;
+        let fertilizantesCount = 0;
+        let agroquímicosCount = 0;
 
-        //! Iterar sobre los cultivos y contar la cantidad en cada categoría
-        product.forEach(item => {
+        products.forEach(item => {
             switch (item.category) {
                 case "Frutas":
                     frutasCount++;
@@ -46,7 +66,6 @@ module.exports.formattedForCharts = async (req, res) => {
             }
         });
 
-        //! Iterar sobre los ganados y contar la cantidad en cada categoría
         cattle.forEach(item => {
             switch (item.category) {
                 case "Lechero":
@@ -67,13 +86,11 @@ module.exports.formattedForCharts = async (req, res) => {
                 case "Ave de Corral":
                     aveCount++;
                     break;
-
                 default:
                     break;
             }
         });
 
-        //! Iterar sobre los insumos agrarios y contar la cantidad en cada categoría
         supplies.forEach(item => {
             switch (item.category) {
                 case "Semillas":
@@ -90,7 +107,6 @@ module.exports.formattedForCharts = async (req, res) => {
             }
         });
 
-        //? Construir el objeto de datos formateado para los gráficos
         const data = {
             product: [
                 { value: frutasCount, label: "Frutas" },
@@ -106,13 +122,13 @@ module.exports.formattedForCharts = async (req, res) => {
                 { value: aveCount, label: "Aves de Corral" },
             ],
             supplies: [
-                { value: semillasCount, label: "Agroquímicos" },
-                { value: fertilizantesCount, label: "Semillas" },
-                { value: agroquímicosCount, label: "Fertilizantes" },
+                { value: semillasCount, label: "Semillas" },
+                { value: fertilizantesCount, label: "Fertilizantes" },
+                { value: agroquímicosCount, label: "Agroquímicos" },
             ],
             generalData: [
                 { value: cattle.length, label: "Ganado" },
-                { value: product.length, label: "Cultivos" },
+                { value: products.length, label: "Cultivos" },
                 { value: supplies.length, label: "Insumos Agrarios" }
             ]
         };
@@ -123,103 +139,65 @@ module.exports.formattedForCharts = async (req, res) => {
     }
 };
 
-//* Datos para graficas espesificas
-
-//* Controlador del grafico de tipos de Productos existentes.
 module.exports.DataProductForChart = async (req, res) => {
     try {
         const userId = req.userId;
         const products = await Product.find({ id_user: userId });
 
-        // Agrupar los productos por su nombre y sumar la cantidad disponible
-        const productData = products.reduce((acc, curr) => {
-            if (acc[curr.product]) {
-                acc[curr.product] += curr.available;
-            } else {
-                acc[curr.product] = curr.available;
-            }
-            return acc;
-        }, {});
+        const fruitData = dataDrouper(products, "Frutas");
+        const fruit = dataFormatting(fruitData);
 
-        // Formatear los datos en el formato deseado
-        const dataProduct = Object.entries(productData).map(([productName, totalAvailable]) => ({
-            value: totalAvailable,
-            label: productName
-        }));
+        const vegetablesData = dataDrouper(products, "Verduras");
+        const vegetables = dataFormatting(vegetablesData);
 
-        // Añadir otros elementos al arreglo dataProduct si es necesario
-        dataProduct.push({ value: products.length, label: "Cultivos" });
-        // Puedes añadir supplies.length si tienes los datos disponibles en este contexto
+        const grainData = dataDrouper(products, "Granos");
+        const grain = dataFormatting(grainData);
 
-        res.status(200).json({ dataProduct });
+        res.status(200).json({
+            fruit,
+            vegetables,
+            grain
+        });
 
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json(error);
     }
-}
+};
 
-//* Controlador del grafico de cantidad y estado de solud del ganado.
 module.exports.DataCattleForChart = async (req, res) => {
     try {
         const userId = req.userId;
         const cattle = await Cattle.find({ id_user: userId });
-
-        //! Agrupar el ganado por raza y contar la cantidad
-        const razeData = cattle.reduce((acc, curr) => {
-            acc[curr.race] = (acc[curr.race] || 0) + 1;
-            return acc;
-        }, {});
 
         const healthData = cattle.reduce((acc, curr) => {
             acc[curr.healthStatus] = (acc[curr.healthStatus] || 0) + 1;
             return acc;
         }, {});
 
-        //! Formatear los datos en el formato deseado
-        const dataRaze = Object.entries(razeData).map(([race, count]) => ({
-            value: count,
-            label: race
-        }));
+        const dataHealth = dataFormatting(healthData);
 
-        const dataHealt = Object.entries(healthData).map(([state, count]) => ({
-            value: count,
-            label: state
-        }));
-
-        const dataCattle = {
-            dataRaze,
-            dataHealt
-        }
-
-        res.status(200).json({ dataCattle });
+        res.status(200).json(dataHealth);
 
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json(error);
     }
-}
+};
 
-//* Conrolador del grafico de carateristicas de los insumos indica la cantidad de insumos granulados, solidos y liquidos
-//* Existentes en la base de datos
 module.exports.DataSupplieForChart = async (req, res) => {
     try {
         const userId = req.userId;
         const supplies = await Supplie.find({ id_user: userId });
 
-        //! Agrupar el ganado por raza y contar la cantidad
-        const supplieData = supplies.reduce((acc, curr) => {
+        const characteristicData = supplies.reduce((acc, curr) => {
             acc[curr.characteristic] = (acc[curr.characteristic] || 0) + 1;
             return acc;
         }, {});
 
-        //! Formatear los datos en el formato deseado
-        const dataCharacteristic = Object.entries(supplieData).map(([characteristic, count]) => ({
-            value: count,
-            label: characteristic
-        }));
+        const dataCharacteristic = dataFormatting(characteristicData);
 
-        res.status(200).json({ dataCharacteristic });
+        res.status(200).json(dataCharacteristic);
 
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json(error);
     }
-}
+};
