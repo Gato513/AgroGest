@@ -23,7 +23,7 @@ const Mapa = ({coordinates}) => {
   const position = [mapState.lat, mapState.lng];
 
   return (
-    <>
+    <div  className='mapa' >
   
       {isClient && (
         <MapContainer center={position} zoom={mapState.zoom} style={{ height: '400px', width: '100%' }}>
@@ -34,7 +34,7 @@ const Mapa = ({coordinates}) => {
           <Polygon color="purple" positions={polygon} /> {/* Asegúrate de actualizar o remover si no es relevante */}D
         </MapContainer>
       )}
-    </>
+    </div>
   );
 };
 
