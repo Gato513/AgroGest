@@ -1,14 +1,4 @@
-import {
-	Button,
-	Paper,
-	Stack,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-} from "@mui/material";
+import { Button, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import generateKey from "@/util/generateKey";
 
 import { deleteItem } from "@/app/api/route";
@@ -25,7 +15,7 @@ const DisplaySupplies = ({ handleFormType, removeFromDom, dataSupplie }) => {
 	};
 
 	return (
-		<TableContainer component={Paper} sx={{ maxHeight: "51.3vh" }}>
+		<TableContainer component={Paper} sx={{ maxHeight: "88vh" }}>
 			<Table aria-label="simple table">
 				<TableHead sx={{ position: "sticky", top: 0, zIndex: 1 }}>
 					<TableRow sx={{ backgroundColor: "white" }}>

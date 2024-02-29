@@ -1,23 +1,9 @@
 import React from "react";
-import {
-	Button,
-	Paper,
-	Stack,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-} from "@mui/material";
+import { Button, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import generateKey from "@/util/generateKey";
 import { deleteItem } from "@/app/api/route";
 
-const DisplayCattle = ({
-	handleFormType,
-	removeFromDom,
-	dataCattleProducts,
-}) => {
+const DisplayCattle = ({ handleFormType, removeFromDom, dataCattleProducts }) => {
 	const deleteCattle = async (idToDelete) => {
 		try {
 			await deleteItem("cattle", idToDelete);
@@ -28,7 +14,7 @@ const DisplayCattle = ({
 	};
 
 	return (
-		<TableContainer component={Paper} sx={{ maxHeight: "53.3vh" }}>
+		<TableContainer component={Paper} sx={{ maxHeight: "90vh" }}>
 			<Table aria-label="simple table">
 				<TableHead sx={{ position: "sticky", top: 0, zIndex: 1 }}>
 					<TableRow sx={{ backgroundColor: "white" }}>

@@ -11,25 +11,44 @@ import { Paper, Typography } from "@mui/material";
 
 import generateSuppliesPDF from "@/components/pdfgen/PdfSupplies";
 
+import { bringChartData } from "@/app/api/route";
+import PieCharts from "@/components/charts/PieCharts";
+
 const Supplie = () => {
 	const [isCreateForm, setIsCreateForm] = useState(true);
 	const [dataOneSupplie, setDataOneSupplie] = useState({});
 	const [data, setData] = useState([]);
 	const [loaded, setLoaded] = useState(false);
 
+	const [chartsData, setChartsData] = useState({});
+
+	const getDataAllCharts = async () => {
+		try {
+			const chartsData = await bringChartData("supplie");
+			setChartsData(chartsData);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const getDataAllProduct = async () => {
+		try {
+			const productData = await getAllItems("supplie");
+			setData(productData);
+			setLoaded(true);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const dataCollection = "supplie";
-				const supplieData = await getAllItems(dataCollection);
-				setData(supplieData);
-				setLoaded(true);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		fetchData();
+		getDataAllCharts();
+		getDataAllProduct();
 	}, []);
+	useEffect(() => {
+		getDataAllCharts();
+	}, [data]);
+
 
 	const removeFromDom = (itemId) => {
 		setData((prevData) => prevData.filter((item) => item._id !== itemId));
@@ -70,13 +89,11 @@ const Supplie = () => {
 	return (
 		loaded && (
 			<Box sx={{ width: "100%" }}>
-				<Grid
-					container
-					rowSpacing={1}
-					columnSpacing={{ xs: 1, sm: 1, md: 1 }}
-				>
-					<Grid item xs={4}>
-						{isCreateForm ? (
+                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
+                    <Grid item xs={4}>
+                        <Grid container rowSpacing={1}>
+                            <Grid item xs={12}>
+							{isCreateForm ? (
 							<CreateSupplies
 								addSupplie={addFromDom}
 								generateReport={handleReportBuilder}
@@ -88,40 +105,28 @@ const Supplie = () => {
 								generateReport={handleReportBuilder}
 							/>
 						)}
-					</Grid>
-					<Grid item xs={8}>
-						<Box>
-							<DisplaySupplies
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Paper sx={styleContainer}>
+                                    <Typography>Caracteristicas</Typography>
+                                    <PieCharts data={chartsData} />
+                                </Paper>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    <Grid item xs={8}>
+                        <Box>
+						<DisplaySupplies
 								handleFormType={defineEditForm}
 								removeFromDom={removeFromDom}
 								dataSupplie={data}
 							/>
-						</Box>
-					</Grid>
-
-					{/*//! Graficos */}
-					<Grid item xs={4}>
-						<Paper sx={styleContainer}>
-							<Typography>Frutas</Typography>
-							{/* <PieCharts data={chartsData.fruit} /> */}
-						</Paper>
-					</Grid>
-
-					<Grid item xs={4}>
-						<Paper sx={styleContainer}>
-							<Typography>Vegetales</Typography>
-							{/* <PieCharts data={chartsData.vegetables} /> */}
-						</Paper>
-					</Grid>
-
-					<Grid item xs={4}>
-						<Paper sx={styleContainer}>
-							<Typography>Granos</Typography>
-							{/* <PieCharts data={chartsData.grain} /> */}
-						</Paper>
-					</Grid>
-				</Grid>
-			</Box>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Box>
 		)
 	);
 };
