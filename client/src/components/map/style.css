@@ -50,17 +50,28 @@
     
 }
 .button{
+    margin-top: 1vh;
     border: none;
     height: 6vh;
     text-align: center;
-    color: rgb(87, 87, 87);
+    color: rgb(38, 38, 38);
     font-weight: bold;
     border-radius: 1vw;
     padding: 0.5vw;
 }
+
 .colorBlue{
     background-color: rgb(34, 148, 177);
 }
 .colorGreen{
     background-color: rgb(32, 192, 51);
+}
+.buttonFormDelete:hover{
+    background-color: #cc4c4c; 
+}
+.button:hover {
+    background-color: rgb(39, 151, 121);
+}
+.buttonFormDelete:active, .button:active {
+    transform: scale(1.1);
 }
