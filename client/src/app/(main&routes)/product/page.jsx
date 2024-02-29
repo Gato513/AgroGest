@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { getAllItems, bringChartData } from "@/app/api/route";
@@ -9,6 +9,7 @@ import DisplayProduct from "@/components/product/DisplayProduct";
 
 import generatePDF from "@/components/pdfgen/generatePDF";
 import PieCharts from "@/components/charts/PieCharts";
+import { Paper, Typography } from "@mui/material";
 
 const Product = () => {
 	const [isCreateForm, setIsCreateForm] = useState(true);
@@ -78,7 +79,7 @@ const Product = () => {
 		setIsCreateForm(true);
 	};
 
-	const handleGeneratePDF = () => {
+	const handleReportBuilder = () => {
 		generatePDF(data);
 	};
 
@@ -87,16 +88,20 @@ const Product = () => {
 			<Box sx={{ width: "100%" }}>
 				<Grid
 					container
-					rowSpacing={1}
+					rowSpacing={0.5}
 					columnSpacing={{ xs: 1, sm: 2, md: 1 }}
 				>
 					<Grid item xs={4}>
 						{isCreateForm ? (
-							<CreateProduct addProduct={addFromDom} />
+							<CreateProduct
+								addProduct={addFromDom}
+								generateReport={handleReportBuilder}
+							/>
 						) : (
 							<EditeProduct
-								dataProduct={dataOneProduct}
+								dataProducts={dataOneProduct}
 								redefineCreationForm={defineCreationForm}
+								generateReport={handleReportBuilder}
 							/>
 						)}
 					</Grid>
@@ -109,19 +114,25 @@ const Product = () => {
 							/>
 						</Box>
 					</Grid>
-					//* Boton de Generar pdf
-					<Grid item xs={12}>
-						<button onClick={handleGeneratePDF}>Generar PDF</button>
+
+					{/*//! Graficos */}
+					<Grid item xs={4}>
+						<Paper sx={styleContainer}>
+							<Typography>Frutas</Typography>
+							<PieCharts data={chartsData.fruit} />
+						</Paper>
 					</Grid>
-					//* Graficos de datos
-					<Grid item xs={3}>
-						<PieCharts data={chartsData} />
+					<Grid item xs={4}>
+						<Paper sx={styleContainer}>
+							<Typography>Vegetales</Typography>
+							<PieCharts data={chartsData.vegetables} />
+						</Paper>
 					</Grid>
-					<Grid item xs={3}>
-						<PieCharts data={chartsData} />
-					</Grid>
-					<Grid item xs={3}>
-						<PieCharts data={chartsData} />
+					<Grid item xs={4}>
+						<Paper sx={styleContainer}>
+							<Typography>Granos</Typography>
+							<PieCharts data={chartsData.grain} />
+						</Paper>
 					</Grid>
 				</Grid>
 			</Box>
@@ -130,3 +141,10 @@ const Product = () => {
 };
 
 export default Product;
+
+const styleContainer = {
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "center",
+	backgroundColor: "white",
+};

@@ -22,4 +22,3 @@ const EditeProduct = ({ dataProducts, redefineCreationForm }) => {
 };
 
 export default EditeProduct;
-
