@@ -8,6 +8,8 @@ import CreateCattle from "@/components/cattle/CreateCattle";
 import EditeCattle from "@/components/cattle/EditeCattle";
 import DisplayCattle from "@/components/cattle/DisplayCattle";
 
+import generatePDF from "@/components/pdfgen/PdfCatte";
+
 const ProductCattle = () => {
 	const [isCreateForm, setIsCreateForm] = useState(true);
 	const [dataOneCattle, setDataOneCattle] = useState({});
@@ -60,6 +62,9 @@ const ProductCattle = () => {
 		setIsCreateForm(true);
 	};
 
+	const handleGeneratePDF = () => {
+        generatePDF(data);
+    };
 	return (
 		loaded && (
 			<Box sx={{ width: "100%" }}>
@@ -96,10 +101,8 @@ const ProductCattle = () => {
 					</Grid>
 
 					<Grid item xs={2}>
-						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
-							Seccion donde estara el boton de generar informe.
-						</Box>
-					</Grid>
+                        <button onClick={handleGeneratePDF}>Generar PDF</button>
+                    </Grid>
 					
 					<Grid item xs={8}>
 						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}

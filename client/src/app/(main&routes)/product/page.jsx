@@ -8,6 +8,7 @@ import EditeProduct from "@/components/product/EditeProduct";
 import DisplayProduct from "@/components/product/DisplayProduct";
 
 import generatePDF from "@/components/pdfgen/generatePDF";
+
 import PieCharts from "@/components/charts/PieCharts";
 import { Paper, Typography } from "@mui/material";
 
