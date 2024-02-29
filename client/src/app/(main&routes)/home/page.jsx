@@ -39,7 +39,7 @@ const Home = () => {
 		const fetchData = async () => {
 			
 			try {
-				const data = await bringChartData("generalGraphics");
+				const data = await bringChartData("generalGraphics");//GRAFICOS 
 				setData(data);
 				setLoaded(true);
 			} catch (error) {

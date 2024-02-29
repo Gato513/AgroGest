@@ -7,6 +7,8 @@ import { getAllItems } from "@/app/api/route";
 import CreateSupplies from "@/components/supplies/CreateSupplies";
 import DisplaySupplies from "@/components/supplies/DisplaySupplies";
 import EditeSupplies from "@/components/supplies/EditeSupplies";
+import generatePDF from "@/components/pdfgen/PdfSupplies";
+
 
 const Supplie = () => {
 	const [isCreateForm, setIsCreateForm] = useState(true);
@@ -59,6 +61,11 @@ const Supplie = () => {
 		setIsCreateForm(true);
 	};
 
+	
+    const handleGeneratePDF = () => {
+        generatePDF(data);
+    };
+
 	return (
 		loaded && (
 			<Box sx={{ width: "100%" }}>
@@ -96,10 +103,8 @@ const Supplie = () => {
 					</Grid>
 
 					<Grid item xs={2}>
-						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
-							Seccion donde estara el boton de generar informe.
-						</Box>
-					</Grid>
+                        <button onClick={handleGeneratePDF}>Generar PDF</button>
+                    </Grid>
 					
 					<Grid item xs={8}>
 						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
