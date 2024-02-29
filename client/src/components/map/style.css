@@ -1,3 +1,66 @@
 .leaflet-container{
     height: 100vh;
 }
+.buttonFormDelete{
+    background-color: rgb(255, 59, 59);
+    border: none;
+    border-radius: 1vw;
+    width: 6vw;
+    height: 4vh;
+    color: white;
+    font-weight: bold;
+
+}
+.container{
+    display: flex;
+}
+.formContainer{
+
+   width: 35vw;
+    
+}
+.addButtonContainter{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 3vw;
+}
+
+.containInput{
+    margin: 1vh;
+    margin-left: 0;
+    display: flex;
+    gap: 1vw;
+    height: 5vh;
+}
+.mapa{
+    width: 65vw;
+
+}
+.containElementsForm{
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+}
+.inputForm{
+    border: none;
+    border-radius: 1vw;
+    width: 12vw;
+    text-align: center;
+    
+}
+.button{
+    border: none;
+    height: 6vh;
+    text-align: center;
+    color: rgb(87, 87, 87);
+    font-weight: bold;
+    border-radius: 1vw;
+    padding: 0.5vw;
+}
+.colorBlue{
+    background-color: rgb(34, 148, 177);
+}
+.colorGreen{
+    background-color: rgb(32, 192, 51);
+}

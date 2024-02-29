@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-
+import './style.css'
 const PolygonForm = ({coordinates, setCoordinates}) => {
   const handleCoordinateChange = (index, position, value) => {
     const updatedCoordinates = coordinates.map((coordinate, i) => {
@@ -29,31 +29,37 @@ const PolygonForm = ({coordinates, setCoordinates}) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='formContainer' onSubmit={handleSubmit}>
       <h2>Ingresa las coordenadas</h2>
       {coordinates.map((coordinate, index) => (
-        <div key={index}>
-          <input
-            type="number"
-            placeholder="Latitud"
-            value={coordinate[0]}
-            onChange={(e) => handleCoordinateChange(index, 0, e.target.value)}
-          />
-          <input
-            type="number"
-            placeholder="Longitud"
-            value={coordinate[1]}
-            onChange={(e) => handleCoordinateChange(index, 1, e.target.value)}
-          />
-          <button type="button" onClick={() => removeCoordinate(index)}>
+        <div className='containElementsForm' key={index}>
+          <div className='containInput'>
+            <input className='inputForm'
+              type="number"
+              placeholder="Latitud"
+              value={coordinate[0]}
+              onChange={(e) => handleCoordinateChange(index, 0, e.target.value)}
+            />
+            <input className='inputForm'
+              type="number"
+              placeholder="Longitud"
+              value={coordinate[1]}
+              onChange={(e) => handleCoordinateChange(index, 1, e.target.value)}
+            />
+          </div>
+          
+          <button className='buttonFormDelete' type="button" onClick={() => removeCoordinate(index)}>
             Eliminar
           </button>
         </div>
       ))}
-      <button type="button" onClick={addCoordinate}>
-        Añadir otra coordenada
-      </button>
-      <button type="submit">Guardar coordenadas</button>
+      <div className='addButtonContainter'>
+        <button className='button colorBlue' type="button" onClick={addCoordinate}>
+          Añadir otra coordenada
+        </button>
+        <button className='button colorGreen' type="submit">Guardar coordenadas</button>
+
+      </div>
     </form>
   );
 };
