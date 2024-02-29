@@ -3,15 +3,17 @@ import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
+import generateCattlePDF from "@/components/pdfgen/PdfCatte";
 import { getAllItems } from "@/app/api/route";
 import CreateCattle from "@/components/cattle/CreateCattle";
 import EditeCattle from "@/components/cattle/EditeCattle";
 import DisplayCattle from "@/components/cattle/DisplayCattle";
+import { Paper, Typography } from "@mui/material";
 
 const ProductCattle = () => {
 	const [isCreateForm, setIsCreateForm] = useState(true);
 	const [dataOneCattle, setDataOneCattle] = useState({});
-	
+
 	const [data, setData] = useState([]);
 	const [loaded, setLoaded] = useState(false);
 
@@ -60,6 +62,10 @@ const ProductCattle = () => {
 		setIsCreateForm(true);
 	};
 
+	const handleReportBuilder = () => {
+		generateCattlePDF(data);
+	};
+
 	return (
 		loaded && (
 			<Box sx={{ width: "100%" }}>
@@ -70,7 +76,10 @@ const ProductCattle = () => {
 				>
 					<Grid item xs={4}>
 						{isCreateForm ? (
-							<CreateCattle addProduct={addFromDom} />
+							<CreateCattle
+								addProduct={addFromDom}
+								generateReport={handleReportBuilder}
+							/>
 						) : (
 							<EditeCattle
 								dataCattle={dataOneCattle}
@@ -88,25 +97,26 @@ const ProductCattle = () => {
 						</Box>
 					</Grid>
 
-					{/*//* Secciones Agregadas para proyecto Grupal  */}		
-					<Grid item xs={2}>
-						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
-							Seccion donde estara el formulario de filtrado
-						</Box>
+					{/*//! Graficos */}
+					<Grid item xs={4}>
+						<Paper sx={styleContainer}>
+							<Typography>Frutas</Typography>
+							{/* <PieCharts data={chartsData.fruit} /> */}
+						</Paper>
 					</Grid>
-
-					<Grid item xs={2}>
-						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
-							Seccion donde estara el boton de generar informe.
-						</Box>
+					<Grid item xs={4}>
+						<Paper sx={styleContainer}>
+							<Typography>Vegetales</Typography>
+							{/* <PieCharts data={chartsData.vegetables} /> */}
+						</Paper>
+					</Grid>
+					<Grid item xs={4}>
+						<Paper sx={styleContainer}>
+							<Typography>Granos</Typography>
+							{/* <PieCharts data={chartsData.grain} /> */}
+						</Paper>
 					</Grid>
 					
-					<Grid item xs={8}>
-						<Box sx={{backgroundColor: "white", minHeight: "14rem", outline: "1px solid black"}}> {/*//* => Estos estilos deven ser eleiminados */}
-							Seccion donde estaran algunos graficos=( Grafico porcentual de raza existente y Grafico porcentual de estado de salud).
-							Estos graficos deveranser independientes del filtro aplicado
-						</Box>
-					</Grid>
 
 				</Grid>
 			</Box>
@@ -115,3 +125,10 @@ const ProductCattle = () => {
 };
 
 export default ProductCattle;
+
+const styleContainer = {
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "center",
+	backgroundColor: "white",
+};

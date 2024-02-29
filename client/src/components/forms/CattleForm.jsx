@@ -1,22 +1,9 @@
 "use client";
 "use client";
-import {
-	Button,
-	Paper,
-	Stack,
-	TextField,
-	Typography,
-	MenuItem,
-	Box,
-} from "@mui/material";
+import { Button, Paper, Stack, TextField, Typography, MenuItem, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const CattleForm = ({
-	dataSendingHandler,
-	initialData,
-	labelButton,
-	labelTitle,
-}) => {
+const CattleForm = ({ dataSendingHandler, initialData, labelButton, labelTitle, generateReport }) => {
 	const [formData, setFormData] = useState(initialData);
 
 	useEffect(() => {
@@ -136,13 +123,11 @@ const CattleForm = ({
 							onChange={handleChange}
 							fullWidth
 						>
-							{["kg", "gr", "litros", "docenas"].map(
-								(option) => (
-									<MenuItem key={option} value={option}>
-										{option}
-									</MenuItem>
-								)
-							)}
+							{["kg", "gr", "litros", "docenas"].map((option) => (
+								<MenuItem key={option} value={option}>
+									{option}
+								</MenuItem>
+							))}
 						</TextField>
 
 						<TextField
@@ -177,9 +162,17 @@ const CattleForm = ({
 						/>
 					</Stack>
 				</Box>
-				<Box>
+				<Box sx={{ display: "flex", gap: 2 }}>
 					<Button type="submit" variant="contained" color="primary">
 						{labelButton}
+					</Button>
+
+					<Button
+						variant="contained"
+						color="success"
+						onClick={generateReport}
+					>
+						Generar PDF
 					</Button>
 				</Box>
 			</form>

@@ -62,17 +62,6 @@ const DisplayCattle = ({ handleFormType, removeFromDom, dataCattleProducts }) =>
 										spacing={2}
 										justifyContent="center"
 									>
-										<Button
-											variant="contained"
-											color="success"
-											/* 
-											Agregar funcion de redireccionamiento a la paguina de detallers con el id del ganado.
-											onClick={(e) =>
-												ruhandleFormType(item._id)
-											} */
-										>
-											Detalles
-										</Button>
 
 										<Button
 											variant="contained"
