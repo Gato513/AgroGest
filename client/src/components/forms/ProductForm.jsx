@@ -7,9 +7,6 @@ const ProductForm = ({ dataSendingHandler, initialData, labelButton, labelTitle 
 
     useEffect(() => {
         setFormData(initialData);
-        
-        console.log(initialData);
-
     }, [initialData]);
 
     const handleChange = (e) => {

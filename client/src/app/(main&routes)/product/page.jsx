@@ -6,7 +6,7 @@ import { getAllItems, bringChartData } from "@/app/api/route";
 import CreateProduct from "@/components/product/CreateProduct";
 import EditeProduct from "@/components/product/EditeProduct";
 import DisplayProduct from "@/components/product/DisplayProduct";
-import generatePDF from "@/components/pdfgen/generatePDF";
+import generatePDF from "@/components/pdfgen/PdfProduct";
 import PieCharts from "@/components/charts/PieCharts";
 
 const Product = () => {
