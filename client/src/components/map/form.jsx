@@ -1,7 +1,7 @@
 'use client'
-import { useState } from 'react';
 import './style.css'
 const PolygonForm = ({coordinates, setCoordinates}) => {
+
   const handleCoordinateChange = (index, position, value) => {
     const updatedCoordinates = coordinates.map((coordinate, i) => {
       if (i === index) {
@@ -11,6 +11,7 @@ const PolygonForm = ({coordinates, setCoordinates}) => {
       }
       return coordinate;
     });
+
     setCoordinates(updatedCoordinates);
   };
 
@@ -29,7 +30,7 @@ const PolygonForm = ({coordinates, setCoordinates}) => {
   };
 
   return (
-    <form className='formContainer' onSubmit={handleSubmit}>
+    <form className='formContainer' onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column", alignItems: "center", gap: 5}}>
       <h2>Ingresa las coordenadas</h2>
       {coordinates.map((coordinate, index) => (
         <div className='containElementsForm' key={index}>

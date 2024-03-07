@@ -8,10 +8,10 @@ import '../../../components/map/style.css'
 export default function MapPage(){
     const [coordinates, setCoordinates] = useState([
         ['', ''], // Estructura inicial para las coordenadas
-      ]);
+    ]);
     
     return(
-        <div className='container'>
+        <div className='container' style={{display: "flex", alignItems: "center", padding: "1rem"}}>
             <PolygonForm  coordinates={coordinates} setCoordinates={setCoordinates}></PolygonForm>
             <Mapa coordinates={coordinates} ></Mapa>
         </div>
